@@ -1,0 +1,599 @@
+/* Import custom fonts */
+@import './styles/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Duolingo-inspired animations and utilities */
+@layer utilities {
+  /* Gradient background animation */
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 15s ease infinite;
+  }
+
+  @keyframes gradient-x {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Slow bounce animation for UI elements */
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+  
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Animation delay utility */
+  .delay-1000 {
+    animation-delay: 1000ms;
+  }
+  
+  /* Mascot wiggle animation */
+  .animate-wiggle {
+    animation: wiggle 2s ease-in-out infinite;
+  }
+  
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  
+  /* Achievement unlock animation */
+  .animate-unlock {
+    animation: unlock 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  
+  @keyframes unlock {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Progress bar fill animation */
+  .animate-fill {
+    animation: fill 1s ease-out forwards;
+  }
+  
+  @keyframes fill {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  /* Character speak animation */
+  .animate-speak {
+    transform-origin: bottom center;
+    animation: speak 0.3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes speak {
+    from { transform: scale(1, 1); }
+    to { transform: scale(1.05, 0.95); }
+  }
+}
+
+@layer utilities {
+  /* Card hover animation */
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* 3D card flip animation */
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  /* Fade in animation */
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Scale in animation */
+  .animate-scaleIn {
+    animation: scaleIn 0.3s ease-in-out forwards;
+  }
+  
+  @keyframes scaleIn {
+    from { 
+      opacity: 0; 
+      transform: scale(0.9);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Bounce in animation */
+  .animate-bounceIn {
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  
+  @keyframes bounceIn {
+    from {
+      opacity: 0;
+      transform: scale(0.3) translateY(-100px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05) translateY(0);
+    }
+    70% {
+      transform: scale(0.9) translateY(0);
+    }
+    to {
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  /* Subtle bounce animation */
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s infinite ease-in-out;
+  }
+  
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translate(-50%, -50%);
+    }
+    50% {
+      transform: translate(-50%, -60%);
+    }
+  }
+  
+  /* Slide in bottom animation */
+  .slide-in-bottom {
+    animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  
+  @keyframes slide-in-bottom {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Confetti container */
+  .confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+}
+
+:root {
+  /* Duolingo-inspired color palette */
+  --background: 220 33% 98%; /* Light neutral background */
+  --foreground: 220 25% 20%; /* Dark text */
+  --muted: 220 20% 94%; /* Light muted background */
+  --muted-foreground: 220 10% 40%; /* Muted text */
+  --popover: 220 33% 98%;
+  --popover-foreground: 220 25% 20%;
+  --card: 0 0% 100%; /* White card background */
+  --card-foreground: 220 25% 20%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --primary: 158 84% 39%; /* Duolingo green */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 252 75% 63%; /* Duolingo purple */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 191 91% 37%; /* Duolingo blue */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%; /* Red */
+  --destructive-foreground: 0 0% 100%;
+  --success: 145 63% 42%; /* Success green */
+  --success-foreground: 0 0% 100%;
+  --warning: 31 92% 55%; /* Duolingo orange */
+  --warning-foreground: 0 0% 20%;
+  --ring: 158 84% 39%;
+  --radius: 1rem; /* Rounded corners like Duolingo */
+  
+  /* Duolingo specific palette that can be used directly in Tailwind classes */
+  --duo-green-50: #e6f7e6;
+  --duo-green-100: #c2eac5;
+  --duo-green-200: #a0dda5;
+  --duo-green-300: #7ccf85;
+  --duo-green-400: #58c065;
+  --duo-green-500: #58a700; /* Main Duolingo green */
+  --duo-green-600: #4a8c00;
+  --duo-green-700: #3c7100;
+  --duo-green-800: #2e5600;
+  --duo-green-900: #203c00;
+  
+  --duo-purple-50: #f5edfc;
+  --duo-purple-100: #e7d4f9;
+  --duo-purple-200: #d8b9f5;
+  --duo-purple-300: #c99ef2;
+  --duo-purple-400: #ba83ee;
+  --duo-purple-500: #a560f0; /* Main Duolingo purple */
+  --duo-purple-600: #8a4ccc;
+  --duo-purple-700: #7039a8;
+  --duo-purple-800: #552684;
+  --duo-purple-900: #3a1360;
+  
+  --duo-blue-50: #e6f6fa;
+  --duo-blue-100: #c4e8f2;
+  --duo-blue-200: #a2daea;
+  --duo-blue-300: #7fcce2;
+  --duo-blue-400: #5dbedb;
+  --duo-blue-500: #1cb0f6; /* Main Duolingo blue */
+  --duo-blue-600: #1899d6;
+  --duo-blue-700: #1482b6;
+  --duo-blue-800: #106b96;
+  --duo-blue-900: #0c5576;
+  
+  --duo-orange-50: #fff1e5;
+  --duo-orange-100: #ffdec2;
+  --duo-orange-200: #ffca9e;
+  --duo-orange-300: #ffb77a;
+  --duo-orange-400: #ffa357;
+  --duo-orange-500: #ff9600; /* Main Duolingo orange */
+  --duo-orange-600: #db8100;
+  --duo-orange-700: #b76c00;
+  --duo-orange-800: #935700;
+  --duo-orange-900: #6f4200;
+  
+  --duo-red-50: #fee7e7;
+  --duo-red-100: #fcc5c5;
+  --duo-red-200: #faa3a3;
+  --duo-red-300: #f78080;
+  --duo-red-400: #f55e5e;
+  --duo-red-500: #ff4b4b; /* Main Duolingo red */
+  --duo-red-600: #db4040;
+  --duo-red-700: #b73535;
+  --duo-red-800: #932a2a;
+  --duo-red-900: #6f2020;
+}
+
+.dark {
+  --background: 220 40% 13%; /* Dark background */
+  --foreground: 0 0% 95%; /* Light text */
+  --muted: 220 40% 20%; /* Muted dark background */
+  --muted-foreground: 0 0% 70%; /* Muted light text */
+  --popover: 220 40% 13%;
+  --popover-foreground: 0 0% 95%;
+  --card: 220 40% 17%; /* Card background */
+  --card-foreground: 0 0% 95%;
+  --border: 220 40% 25%;
+  --input: 220 40% 25%;
+  --primary: 158 65% 35%; /* Duolingo dark green */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 252 65% 55%; /* Duolingo dark purple */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 191 80% 30%; /* Duolingo dark blue */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 70% 50%; /* Dark red */
+  --destructive-foreground: 0 0% 100%;
+  --success: 145 55% 35%; /* Dark success green */
+  --success-foreground: 0 0% 100%;
+  --warning: 31 85% 45%; /* Duolingo dark orange */
+  --warning-foreground: 0 0% 20%;
+  --ring: 158 65% 35%;
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-image: radial-gradient(
+      hsl(158 84% 39% / 0.1),
+      hsl(252 75% 63% / 0.1)
+    );
+    background-attachment: fixed;
+  }
+}
+
+/* Gen Z friendly styling */
+@layer components {
+  /* Gradient buttons */
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all duration-300;
+    background-size: 200% auto;
+    animation: gradient 4s ease infinite;
+  }
+
+  /* Card with hover effects */
+  .card-hover {
+    @apply shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1;
+  }
+
+  /* Avatar selection highlight */
+  .avatar-selected {
+    @apply ring-4 ring-secondary ring-offset-2 scale-105 transition-all duration-300;
+  }
+
+  /* Progress bars with animation */
+  .progress-animated .progress-bar {
+    transition: width 1s ease;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
+    background-size: 200% 200%;
+    animation: gradient 2s ease infinite;
+  }
+
+  /* Badges with gradient */
+  .badge-gradient {
+    @apply bg-gradient-to-r from-accent to-secondary text-white font-medium px-3 py-1 rounded-full text-xs;
+  }
+}
+
+/* Animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.slide-in-bottom {
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Race and Game Animations */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8) translateY(-30px);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1) translateY(5px);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95) translateY(-2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-bounceIn {
+  animation: bounceIn 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100px) rotate(360deg);
+  }
+}
+
+.animate-confetti {
+  animation: confetti 1s ease-out forwards;
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-checkmark {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: checkmarkDraw 0.6s ease-in forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+}
+
+.animate-progress {
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.8) 50%, 
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Race track animations */
+@keyframes moveAlongTrack {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(25vw) translateY(-5px);
+  }
+  50% {
+    transform: translateX(50vw) translateY(0);
+  }
+  75% {
+    transform: translateX(75vw) translateY(-5px);
+  }
+  100% {
+    transform: translateX(95vw) translateY(0);
+  }
+}
+
+.animate-track-movement {
+  animation: moveAlongTrack 30s linear infinite;
+}
+
+/* Quiz race completion animation */
+.race-finish {
+  position: relative;
+  overflow: hidden;
+}
+
+.race-finish::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    black,
+    black 10px,
+    white 10px,
+    white 20px
+  );
+  mask: linear-gradient(90deg, transparent, white 50%);
+  animation: shimmer 2s infinite linear;
+}
+
+/* Quiz confetti animation */
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ffd700;
+  top: 0;
+  opacity: 0;
+}
+
+/* Highlight pulse animation for education requirements */
+.highlight-pulse {
+  animation: highlight-pulse 2s ease-in-out;
+  box-shadow: 0 0 0 5px rgba(88, 167, 0, 0.5);
+  z-index: 10;
+}
+
+@keyframes highlight-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(88, 167, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(88, 167, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(88, 167, 0, 0);
+  }
+}
