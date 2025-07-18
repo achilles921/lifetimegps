@@ -5,12 +5,25 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 // Initialize the optimized caching system with default namespace
 initializeCache('default');
 
 const app = express();
+
+// Serve static files from frontend/dist
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+// SPA Fallback: serve index.html for any non-API route
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
 
 // Enable CORS for frontend
 app.use(cors({
